@@ -1,0 +1,86 @@
+#系统配置
+app:
+  title: LTEVO
+  bgpic: jsbg.jpg
+  logobig: cmccLogo.png
+  logo: cmccLogo.png
+  sqlPath: classpath*:sqlxml/**/*.xml
+  log-pool: 10
+  upload-dir: ./uploads
+  index: /generalisation
+  #skin: blue
+server:
+  tomcat:
+    uri-encoding: UTF-8
+  #servlet:
+    #contextPath: /boot
+mt:
+  Mthost: 10.56.71.118
+  Mtport: 1099
+  Mtrminame: do.mt.dc
+  Mtusername: HeNan.MT
+  Mtpassword: HeNan.MT.PASS
+  Mturl: one_complaint_xdr_query_from_mongo_2_oracle.do
+  outCallMTServiceResult: N
+  #3g/lte/volte
+  sourceTypes: lte,volte
+  callServiceName: xdrMongoQueryImpl
+  tracingUrl: /xdrtracing/mainAction
+  sharkPath: /usr/sbin/tshark
+
+# 日志配置相关参数
+logback:
+  logdir: ./logs
+
+spring:
+  profiles:
+    active: dev
+#    active: prod
+  #数据库配置信息
+#  datasource:
+#    jdbc-url: jdbc:postgresql://127.0.0.1:5433/sqmmt
+#    username: postgres
+#    password: mdasil
+#    driver-class-name: org.postgresql.Driver
+#    maximum-pool-size: 10
+#  vo-datasource:
+##    jdbc-url: jdbc:postgresql://10.216.88.138:6010/sqmgis
+#    jdbc-url: jdbc:postgresql://localhost:5432/sqmgis
+#    username: postgres
+#    password: lwk123
+##    password: postgres
+#    driver-class-name: org.postgresql.Driver
+#    maximum-pool-size: 10
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+  # FREEMARKER (FreeMarkerAutoConfiguration)
+  freemarker:
+    cache: false
+    enabled: true
+    charset: UTF-8
+    content-type: text/html
+    allow-request-override: false
+    allow-session-override: false
+    check-template-location: true
+    expose-request-attributes: false
+    expose-session-attributes: false
+    prefer-file-system-access: false
+    request-context-attribute: request
+    # 这是重点， 会过滤.html后缀的文件
+    suffix: .html
+    # spring boot 默认的页面模板存放目录
+    template-loader-path: classpath:/templates/
+    settings:
+      template_update_delay: 0
+      default_encoding: UTF-8
+      classic_compatible: true
+  #文件上传大小
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 100MB
+      max-request-size: 100MB
+
+

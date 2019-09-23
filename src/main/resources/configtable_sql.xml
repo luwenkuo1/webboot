@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<sqlRoot id="">
+    <!-- 信令回溯网络接口配置获取 -->
+    <!-- 使用模块：com.nsn.web.signalingtracing (信令回溯) -->
+    <sql id="configtable_signal_interface" type="ftl" ds="vo">
+        <![CDATA[
+		select * from tas_master.cfg_signal_interface where is_enable=0 order by node_2_orderby , node_3_orderby
+	]]>
+    </sql>
+
+    <!-- 获取小区配置 -->
+    <!-- 使用模块：com.nsn.web.vo.cmcc.xdr220.diagnosis (VoLTE 智能诊断) -->
+    <sql id="configtable_cell" type="ftl" ds="vo">
+        <![CDATA[
+		SELECT
+			*
+		FROM
+			tas_master.cfg_p_netconf
+	]]>
+    </sql>
+
+    <!-- 获取网元配置 -->
+    <!-- 使用模块：com.nsn.web.vo.cmcc.xdr220.diagnosis (VoLTE 智能诊断) -->
+    <!-- 使用模块：com.nsn.web.signalingtracing (信令回溯) -->
+    <sql id="configtable_ne" type="ftl" ds="vo">
+        <![CDATA[
+		SELECT
+			*
+		FROM
+			tas_master.cfg_ipconf
+	]]>
+    </sql>
+
+    <!-- 获取 接口-XDR流程类型-类型描述 配置 -->
+    <!-- 使用模块：com.nsn.web.vo.cmcc.xdr220.xdrtracing (VoLTE XDR回溯) -->
+    <sql id="configtable_interface_type" type="ftl" ds="vo">
+        <![CDATA[
+		SELECT
+			*
+		FROM
+			tas_master.cfg_interface_procedure_type
+	]]>
+    </sql>
+
+    <!-- 获取 接口-XDR流程状态-状态描述 配置 -->
+    <!-- 使用模块：com.nsn.web.vo.cmcc.xdr220.xdrtracing (VoLTE XDR回溯) -->
+    <sql id="configtable_interface_status" type="ftl" ds="vo">
+        <![CDATA[
+		SELECT
+			*
+		FROM
+			tas_master.cfg_interface_flow_status
+	]]>
+    </sql>
+
+
+    <!-- 获取品牌终端型号 -->
+    <!-- 使用模块：com.nsn.web.vo.cmcc.xdr220.multidimensional (VoLTE 多维查询) -->
+    <sql id="configtable_brand_model" type="ftl" ds="vo">
+        <![CDATA[
+		select * from (
+select brand,model  as text   from tas_master.cfg_tac_ml where 1=1 group by brand,model ) t
+ order by brand,text
+	]]>
+    </sql>
+
+    <!-- 查询一级指标 -->
+    <!-- 使用模块：com.nsn.web.vo.cmcc.xdr220.multidimensional (VoLTE 多维查询) -->
+    <sql id="configtable_kpi_node_1" type="ftl" ds="vo">
+        <![CDATA[
+		  select node_1,node_1_orderby,min(node_id) as node_id
+		  from tas_master.cfg_ml_kpi_tree  GROUP BY node_1,node_1_orderby order by node_1_orderby;
+	]]>
+    </sql>
+
+    <!-- 查询所有的指标 -->
+    <!-- 使用模块：com.nsn.web.vo.cmcc.xdr220.multidimensional (VoLTE 多维查询) -->
+    <sql id="configtable_kpi_all" type="ftl" ds="vo">
+        <![CDATA[
+		  select node_id,node_1,node_2,node_3,node_4,
+		 a.kpi_source,a.kpi_formula,a.kpi_interface,is_by_ci,is_by_network,is_imsi
+		 from tas_master.cfg_ml_kpi_tree t  left join  tas_master.cfg_kpi_defintion a on
+		 t.kpi_code = a.kpi_code where t.is_shield = 0
+		 order by node_1_orderby,node_2_orderby,node_3_orderby,node_4_orderby
+	]]>
+    </sql>
+
+    <!-- 查询一级维度 -->
+    <!-- 使用模块：com.nsn.web.vo.cmcc.xdr220.multidimensional (VoLTE 多维查询) -->
+    <sql id="configtable_dimension_node_1" type="ftl" ds="vo">
+        <![CDATA[
+		  select  node_1,node_1_orderby,node_id from (
+			select node_1,node_1_orderby,min(node_id) as node_id from tas_master.cfg_ml_dimensional_tree group by node_1,node_1_orderby
+			) t order by node_1_orderby
+	]]>
+    </sql>
+    <!-- 查询所有的维度 -->
+    <!-- 使用模块：com.nsn.web.vo.cmcc.xdr220.multidimensional (VoLTE 多维查询) -->
+    <sql id="configtable_dimension_all" type="ftl" ds="vo">
+        <![CDATA[
+		  select * from tas_master.cfg_ml_dimensional_tree where 1=1
+ order by node_1_orderby,node_2_orderby,node_3_orderby
+	]]>
+    </sql>
+
+    <!-- 查询所有的地市维度 -->
+    <!-- 使用模块：com.nsn.web.vo.cmcc.xdr220.multidimensional (VoLTE 多维查询) -->
+    <sql id="configtable_cfg_city" type="ftl" ds="vo">
+        <![CDATA[
+		  select * from tas_master.cfg_city  ORDER BY city_id
+	]]>
+    </sql>
+    <!-- 查询所有的场景维度 -->
+    <!-- 使用模块：com.nsn.web.vo.cmcc.xdr220.multidimensional (VoLTE 多维查询) -->
+    <sql id="configtable_cfg_scene" type="ftl" ds="vo">
+        <![CDATA[
+		 select * from (
+select areatype,sub_areatype  from  tas_master.cfg_p_netconf group by areatype,sub_areatype) a
+order by areatype
+	]]>
+    </sql>
+
+    <!--多维分析加载区域 -->
+    <!-- 使用模块：com.nsn.web.vo.cmcc.xdr220.multidimensional (VoLTE 多维查询) -->
+    <sql id="configtable_cfg_area" type="ftl" ds="vo">
+        <![CDATA[
+		 select area  from tas_master.cfg_p_netconf GROUP BY  area order BY area
+	]]>
+    </sql>
+
+
+    <!-- 多维查询失败原因加载 -->
+    <!-- 使用模块：com.nsn.web.vo.cmcc.xdr220.multidimensional (VoLTE 多维查询) -->
+    <sql id="configtable_fail_tree" type="ftl" ds="vo">
+        <![CDATA[
+		 select a.*,
+       fail_code,
+       replace(fail_where_xdr, '#fail_code#', fail_code) as fail_where_xdr_real
+  from tas_master.cfg_ml_fail_tree a
+  left join tas_master.cfg_ml_fail_code b
+    on a.fail = b.fail_type	where a.is_shield =0
+ order by order_by, fail_code
+	]]>
+    </sql>
+</sqlRoot>

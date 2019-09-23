@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.gbase:gbase-connector:8.3.81.53">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/gbase/gbase-connector/8.3.81.53/gbase-connector-8.3.81.53.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/gbase/gbase-connector/8.3.81.53/gbase-connector-8.3.81.53-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/gbase/gbase-connector/8.3.81.53/gbase-connector-8.3.81.53-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

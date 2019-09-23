@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/../web/parent.iml" filepath="$PROJECT_DIR$/../web/parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../webbase/webbase.iml" filepath="$PROJECT_DIR$/../webbase/webbase.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/webboot.iml" filepath="$PROJECT_DIR$/.idea/webboot.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../wirelesspay/wirelesspay.iml" filepath="$PROJECT_DIR$/../wirelesspay/wirelesspay.iml" />
+    </modules>
+  </component>
+</project>

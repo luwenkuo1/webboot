@@ -1,0 +1,28 @@
+server:
+  port: 8081
+spring:
+  #数据库配置信息
+  datasource:
+    jdbc-url: jdbc:gbase://133.95.12.1:5258/sqmdb_city?user=wangyou&password=HBwy_0322&useUnicode=true&characterEncoding=utf8&failoverEnable=true&hostList=133.95.12.11,133.95.12.21,133.95.12.31,133.95.12.41
+    username: wangyou02
+    password: NK_wx@5190
+    driver-class-name: com.gbase.jdbc.Driver
+    maximum-pool-size: 2
+  vo-datasource:
+    jdbc-url: jdbc:postgresql://133.95.8.71:6000/sqmgis
+#    jdbc-url: jdbc:postgresql://10.216.88.138:6010/sqmgis
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+    maximum-pool-size: 10
+cas:
+  server-url: http://10.216.94.67/cas
+  server-login-url: http://10.216.94.67/cas/login
+#  server-logout-url: http://10.216.94.67/cas/logout?service=http://10.216.94.67/webgis
+  server-logout-url: http://10.216.94.67/cas/logout?service=http://localhost:8081
+app:
+#  url: http://10.216.94.67/webgis
+  url: http://localhost:8081
+  loginPath: /
+  logout: /logout
+  index: /gis/ltecell

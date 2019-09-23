@@ -1,0 +1,79 @@
+{
+ 	tile:{
+		//type:'offline',
+		//url:'http://132.224.198.10:8081/maps/js/'
+		type:'google',
+	//	url:'http://t{s}.tianditu.cn'
+		url:'http://webrd0{s}.is.autonavi.com/appmaptile?lang=zh_cn&style=8&x={x}&y={y}&z={z}'
+	}, 
+   map: { 
+    center:[34.803052972764426,113.68895966052348],//34.7460683,113.6283032
+    zoom: 12,
+    maxZoom: 18,
+    fullscreenControl: true,
+    doubleClickZoom:false,
+    miniMapControl:false//让地图显示是否有缩略图.默认是显示
+  },
+   layers: [ {//82地图
+    url: 'http://mt{s}.google.cn/vt/lyrs=m&hl=zh-CN&gl=cn&x={x}&y={y}&z={z}',
+    subdomains: ['0','1', '2', '3'],
+    name: '地图',
+    type: 'tile',
+    show: true,
+    isBaseLayer: true
+  }, {
+    url: 'http://mt{s}.google.cn/vt/lyrs=s&hl=zh-CN&gl=cn&x={x}&y={y}&z={z}',
+    subdomains: ['0','1', '2', '3'],
+    name: '卫星',
+    type: 'tile',
+    show: false,
+    isBaseLayer: true
+  } 
+/*   {
+   // url: 'http://{s}:8080/map84/roadmap/{z}/{x}/{y}.png',
+    url: 'http://10.92.59.27:8080/map84/overlay_r/{z}/{x}/{y}.png',
+    subdomains: [location.hostname],
+    name: '地名',
+    type: 'tile',
+    show: true
+   // isBaseLayer: true
+  },
+ {
+   // url: 'http://{s}:8080/map84/roadmap/{z}/{x}/{y}.png',
+    url: 'http://10.92.59.27:8080/map84/roadmap/{z}/{x}/{y}.png',
+    subdomains: [location.hostname],
+    name: '道路',
+    type: 'tile',
+    show: true,
+    isBaseLayer: true
+  }, {
+  //  url: 'http://{s}:8080/map84/satellite_henan/{z}/{x}/{y}.jpg',
+    url: 'http://10.92.59.27:8080/map84/satellite_henan/{z}/{x}/{y}.jpg',
+    subdomains: [location.hostname],
+    name: '卫星',
+    type: 'tile',
+    show: false,
+    isBaseLayer: true
+  } */], 
+  layersControl: {
+    collapsed: true/*,
+    position:'topleft'*/
+  },
+  heatMapCfg: {
+    // 0.0058 radius should be small ONLY if scaleRadius is true (or small radius is intended)
+    "radius": 0.0025,
+    "maxOpacity": 0.5,
+    // scales the radius based on map zoom
+    "scaleRadius": true,
+    // if set to false the heatmap uses the global maximum for colorization
+    // if activated: uses the data maximum within the current map boundaries
+    //   (there will always be a red spot with useLocalExtremas true)
+    "useLocalExtrema": false,
+    // which field name in your data represents the latitude - default "lat"
+    latField: 'lat',
+    // which field name in your data represents the longitude - default "lng"
+    lngField: 'lng',
+    // which field name in your data represents the data value - default "value"
+    valueField: 'rate'
+  }
+}

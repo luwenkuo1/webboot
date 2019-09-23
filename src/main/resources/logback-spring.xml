@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- For assistance related to logback-translator or configuration  -->
+<!-- files in general, please contact the logback user mailing list -->
+<!-- at http://www.qos.ch/mailman/listinfo/logback-user             -->
+<!--                                                                -->
+<!-- For professional support please see                            -->
+<!--    http://www.qos.ch/shop/products/professionalSupport         -->
+<!--                                                                -->
+<configuration>
+    <!--application.yml 传递参数，不能使用logback 自带的<property>标签 -->
+    <springProperty scope="context" name="logdir" source="logback.logdir"/>
+
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d [%t] %-5p [%c] - %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="debug" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--See also http://logback.qos.ch/manual/appenders.html#RollingFileAppender-->
+        <File>${logdir}/log/debug.log</File>
+        <!-- 过滤掉 TRACE 和 DEBUG 级别的日志-->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>DEBUG</level>
+        </filter>
+        <encoder>
+            <pattern>%d [%t] %-5p [%c] - %m%n</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <maxIndex>10</maxIndex>
+            <FileNamePattern>${logdir}/log/debug.log.%i</FileNamePattern>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <MaxFileSize>16000KB</MaxFileSize>
+        </triggeringPolicy>
+    </appender>
+    <appender name="error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--See also http://logback.qos.ch/manual/appenders.html#RollingFileAppender-->
+        <File>${logdir}/log/error.log</File>
+        <!-- 过滤掉 TRACE 和 DEBUG 级别的日志-->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+        <encoder>
+            <pattern>%d [%t] %-5p [%c] - %m%n</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <maxIndex>10</maxIndex>
+            <FileNamePattern>${logdir}/log/error.log.%i</FileNamePattern>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <MaxFileSize>16000KB</MaxFileSize>
+        </triggeringPolicy>
+    </appender>
+    <logger name="org.springframework" level="ERROR"/>
+    <logger name="org.quartz" level="ERROR"/>
+    <logger name="com.zaxxer.hikari" level="DEBUG"/>
+    <logger name="com.nokia.web" level="DEBUG"/>
+    <root level="DEBUG">
+        <appender-ref ref="stdout"/>
+        <appender-ref ref="debug"/>
+        <appender-ref ref="error"/>
+    </root>
+</configuration>
